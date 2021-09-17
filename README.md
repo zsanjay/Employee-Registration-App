@@ -26,4 +26,6 @@ Starting Application
 2. Update Project Using Maven.
 3. Run the Application using IDE.
 4. Application starts on port 8080. Make sure it is available.
-5. Refer the screen shots commited with the code for furthur steps.
+5. Refer the screen shots commited with the code for furthur steps or for the application flow.
+6. Checkout the api exposed using SWAGGER , checkout the URL http://localhost:8080/swagger-ui.html.
+
