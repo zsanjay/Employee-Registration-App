@@ -1,0 +1,82 @@
+package com.registration.employee.dto;
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+public class EmployeeDto {
+	
+	private Long id;
+	
+	private Integer empNo;
+	
+	private String name;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date doj;
+	
+	
+	private String deptCode;
+	
+	private String deptDescription;
+	
+	private Long salary;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(Integer empNo) {
+		this.empNo = empNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
+	public String getDeptCode() {
+		return deptCode;
+	}
+
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
+	}
+
+	public Long getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Long salary) {
+		this.salary = salary;
+	}
+
+	public String getDeptDescription() {
+		return deptDescription;
+	}
+
+	public void setDeptDescription(String deptDescription) {
+		this.deptDescription = deptDescription;
+	}
+
+}
