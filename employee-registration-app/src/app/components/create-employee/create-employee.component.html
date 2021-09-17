@@ -1,0 +1,44 @@
+<h4 *ngIf="isAddMode" [hidden]="submitted">Add Employee</h4>
+<h4 *ngIf="!isAddMode" [hidden]="submitted">Edit Employee</h4>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
+    <div class="form-group">
+      <label for="name">Employee No<span class="mandatory">*</span></label>
+      <input [disabled]="!isAddMode" type="text" class="form-control" placeholder="Enter Employee No" id="empno" required maxlength="10" [(ngModel)]="employee.empNo" name="empno" (keypress)="isNumber($event)"  #empno="ngModel">
+      <div *ngIf ="empno.status =='INVALID' && empno.touched" class="alert alert-danger">Please Enter Employee No</div>
+    </div>
+    <div class="form-group">
+        <label for="name">Employee Name<span class="mandatory">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Employee Name" id="empName" required maxlength="100" [(ngModel)]="employee.name" name="empName" #empName="ngModel">
+        <div *ngIf ="empName.status =='INVALID' && empName.touched" class="alert alert-danger">Please Enter Employee Name</div>
+      </div>
+      <div class="form-group">
+        <label for="name">Date of Joining<span class="mandatory">*</span></label>
+        <dp-date-picker  theme="dp-material" placeholder="Select Date of Joining" class="form-control" required [(ngModel)]="employee.doj" name="doj" #doj="ngModel" [config]="datePickerConfig"></dp-date-picker>  
+        <div *ngIf ="doj.status =='INVALID' && doj.touched" class="alert alert-danger">Please Select Date of Joining</div>
+      </div>
+      <div class="form-group">
+        <label for="department">Department<span class="mandatory">*</span></label>
+        <select class="form-control" id="department" name="department" required [(ngModel)]="code" #dept="ngModel">
+          <option disabled [value]="0"  selected>----Select Department----</option>
+          <option *ngFor="let dept of departments" [value]="dept.code">{{dept.code}}</option>
+        </select>
+        <div *ngIf ="code =='0' && dept.touched" class="alert alert-danger">Please Select Department</div>
+      </div>
+      <div class="form-group">
+        <label for="name">Salary<span class="mandatory">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Salary" id="salary" required [(ngModel)]="employee.salary" name="salary" maxlength="10" (keypress)="isNumber($event)" #salary="ngModel">
+        <div *ngIf ="salary.status =='INVALID' && salary.touched" class="alert alert-danger">Please Enter Salary</div>
+      </div>
+      <div class="form-group">
+    <button type="submit" class="btn btn-success btn-space" [disabled] ="f.status=='INVALID'">{{isAddMode ? 'Save' : 'Update'}}</button>
+    <button type="reset" class="btn btn-success btn-space">Clear</button>
+      </div>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4 style="text-align: center;">{{message}}</h4>
+  <button class="btn btn-primary" (click)="newEmployee()">Back to Registration</button>
+</div>
+

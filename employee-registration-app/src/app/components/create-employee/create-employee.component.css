@@ -1,0 +1,14 @@
+
+.btn-space{
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+::ng-deep dp-date-picker.dp-material .dp-picker-input {
+    width: -webkit-fill-available !important;
+    font-size: medium !important;
+}
+
+.mandatory{
+    color: red;
+}
