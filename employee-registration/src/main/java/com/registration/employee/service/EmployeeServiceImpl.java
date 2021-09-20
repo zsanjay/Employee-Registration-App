@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.registration.employee.config.ResourceExistException;
 import com.registration.employee.config.ResourceNotFoundException;
@@ -141,6 +144,35 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		
 		return employeesDto;
+	}
+	
+        @Override
+	public List<EmployeeDto> getTopEmployees(Integer top) {
+		
+		if(top < 1)
+			throw new ResourceNotFoundException("Input must be greater than 1");
+		
+		List<EmployeeDto> employeesDto = new ArrayList<>();
+		
+		Page<Employee> page = employeeRepository.findAll(PageRequest.of(0, top, Sort.by(Sort.Direction.ASC, "empNo")));
+		
+		 page.getContent().forEach(emp -> {
+			
+			EmployeeDto empDto = new EmployeeDto();
+			BeanUtils.copyProperties(emp, empDto);
+			empDto.setDeptCode(emp.getDepartment().getCode());
+			empDto.setDeptDescription(emp.getDepartment().getDescription());
+
+			employeesDto.add(empDto);
+			
+		});
+		 
+		 if(employeesDto.isEmpty())
+				throw new ResourceNotFoundException("Not Found");
+		 
+		 
+		return employeesDto;
+		
 	}
 
 }
