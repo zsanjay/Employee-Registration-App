@@ -17,5 +17,7 @@ public interface EmployeeService {
 	void updateEmployee(Long id, EmployeeDto employee);
 
 	void deleteEmployee(Long id);
+	
+	List<EmployeeDto> getTopEmployees(Integer top);
 
 }
