@@ -71,4 +71,11 @@ public class EmployeeRestController {
 		
 		employeeService.deleteEmployee(id);
 	}
+	
+	@GetMapping("/employees/top")
+	public List<EmployeeDto> getTopEmployeeList(@RequestParam("top") Integer top){
+		
+	    return employeeService.getTopEmployees(top);
+	}
+	
 }
