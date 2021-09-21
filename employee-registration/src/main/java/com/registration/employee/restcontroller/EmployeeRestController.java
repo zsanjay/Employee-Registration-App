@@ -70,7 +70,7 @@ public class EmployeeRestController {
 	}
 	
 	@PutMapping("/employees/{employeeId}")
-	public void updateEmployee(@PathVariable("employeeId") Long employeeId , @RequestBody EmployeeDto employee) {
+	public void updateEmployee(@PathVariable("employeeId") Long employeeId , @Valid @RequestBody EmployeeDto employee) {
 		
 		employeeService.updateEmployee(employeeId, employee);
 	}
