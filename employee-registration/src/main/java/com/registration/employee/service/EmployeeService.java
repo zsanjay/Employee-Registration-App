@@ -12,7 +12,7 @@ public interface EmployeeService {
 
 	EmployeeDto getEmployeeDetails(Long id);
 
-	void createEmployee(EmployeeDto employee);
+	Integer createEmployee(EmployeeDto employee);
 
 	void updateEmployee(Long id, EmployeeDto employee);
 
