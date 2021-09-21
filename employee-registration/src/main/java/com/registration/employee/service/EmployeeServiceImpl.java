@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void createEmployee(EmployeeDto employeeDto) {
+	public Integer createEmployee(EmployeeDto employeeDto) {
 		
 		Employee employee = employeeRepository.findByEmpNo(employeeDto.getEmpNo());
 		
@@ -87,7 +87,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Department dept = departmentRepository.findByCode(employeeDto.getDeptCode());
 		employee.setDepartment(dept);
 		
-		employeeRepository.save(employee);
+		Employee newEmployee = employeeRepository.save(employee);
+		
+		return newEmployee.getEmpNo();
 
 	}
 
