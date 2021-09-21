@@ -1,15 +1,24 @@
 package com.registration.employee.restcontroller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.registration.employee.dto.DepartmentDto;
@@ -55,9 +64,9 @@ public class EmployeeRestController {
 	
 	
 	@PostMapping("/employees")
-	public void createEmployee(@RequestBody EmployeeDto employee) {
+	public Integer createEmployee(@Valid @RequestBody EmployeeDto employee) {
 		
-		employeeService.createEmployee(employee);
+		return employeeService.createEmployee(employee);
 	}
 	
 	@PutMapping("/employees/{employeeId}")
@@ -78,4 +87,15 @@ public class EmployeeRestController {
 	    return employeeService.getTopEmployees(top);
 	}
 	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+	    Map<String, String> errors = new HashMap<>();
+	    ex.getBindingResult().getAllErrors().forEach((error) -> {
+	        String fieldName = ((FieldError) error).getField();
+	        String errorMessage = error.getDefaultMessage();
+	        errors.put(fieldName, errorMessage);
+	    });
+	    return errors;
+	}
 }
