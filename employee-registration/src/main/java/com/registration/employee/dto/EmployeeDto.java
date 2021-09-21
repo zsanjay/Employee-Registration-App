@@ -1,6 +1,8 @@
 package com.registration.employee.dto;
 
 import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,18 +11,22 @@ public class EmployeeDto {
 	
 	private Long id;
 	
+	@NotNull(message = "Employee is mandatory ")
 	private Integer empNo;
 	
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
+	@NotNull(message = "Date of Joining is mandatory")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date doj;
 	
-	
+	@NotBlank(message = "Department code is mandatory")
 	private String deptCode;
 	
 	private String deptDescription;
 	
+	@NotNull(message = "Salary is mandatory")
 	private Long salary;
 
 	public Long getId() {
